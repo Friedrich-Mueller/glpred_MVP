@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "IITQD"
+rootProject.name = "GLP"
 include(":app")
  

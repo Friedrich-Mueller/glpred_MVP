@@ -1,4 +1,4 @@
-package com.example.iitqd;
+package com.example.glpred;
 
 import android.content.Intent;
 import android.os.Bundle;

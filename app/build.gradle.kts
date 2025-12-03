@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.iitqd"
+    namespace = "com.example.glpred"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.iitqd"
+        applicationId = "com.example.glpred"
         minSdk = 31
         targetSdk = 35
         versionCode = 1

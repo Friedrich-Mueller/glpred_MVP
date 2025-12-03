@@ -1,4 +1,4 @@
-package com.example.iitqd;
+package com.example.glpred;
 
 import org.junit.Test;
 

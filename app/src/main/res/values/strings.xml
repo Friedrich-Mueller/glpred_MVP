@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IITQD</string>
+    <string name="app_name">GLP</string>
     <string name="button_send">Save to DB</string>
 
     <string name="enter_date">Enter Date</string>

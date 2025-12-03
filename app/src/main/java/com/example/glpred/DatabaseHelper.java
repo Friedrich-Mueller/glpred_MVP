@@ -1,4 +1,4 @@
-package com.example.iitqd;
+package com.example.glpred;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "IITQD.db";
+    public static final String DATABASE_NAME = "GLP.db";
     public static final String TABLE_NAME = "diary_table";
     public static final String COL_1 = "DATE";
     public static final String COL_2 = "TIME";

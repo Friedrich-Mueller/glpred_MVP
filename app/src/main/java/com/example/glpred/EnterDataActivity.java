@@ -1,4 +1,4 @@
-package com.example.iitqd;
+package com.example.glpred;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -19,12 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EnterDataActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE_DATE = "com.example.iitqd.MESSAGE_DATE";
-    public static final String EXTRA_MESSAGE_TIME = "com.example.iitqd.MESSAGE_TIME";
-    public static final String EXTRA_MESSAGE_GL = "com.example.iitqd.MESSAGE_GL";
-    public static final String EXTRA_MESSAGE_CU = "com.example.iitqd.MESSAGE_CU";
-    public static final String EXTRA_MESSAGE_BOLUS = "com.example.iitqd.MESSAGE_BOLUS";
-    public static final String EXTRA_MESSAGE_BASIS = "com.example.iitqd.MESSAGE_BASIS";
+    public static final String EXTRA_MESSAGE_DATE = "com.example.glpred.MESSAGE_DATE";
+    public static final String EXTRA_MESSAGE_TIME = "com.example.glpred.MESSAGE_TIME";
+    public static final String EXTRA_MESSAGE_GL = "com.example.glpred.MESSAGE_GL";
+    public static final String EXTRA_MESSAGE_CU = "com.example.glpred.MESSAGE_CU";
+    public static final String EXTRA_MESSAGE_BOLUS = "com.example.glpred.MESSAGE_BOLUS";
+    public static final String EXTRA_MESSAGE_BASIS = "com.example.glpred.MESSAGE_BASIS";
     TimePickerDialog time_picker;
     EditText eText_date;
     EditText eText_time;
