@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="glpred_MVP">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-12-04T01:50:48.805245400Z">
+        <DropdownSelection timestamp="2025-12-04T04:19:44.966408500Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\fjun2024\.android\avd\Medium_Phone.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=ZY32L36PSX" />
             </handle>
           </Target>
         </DropdownSelection>

@@ -28,7 +28,6 @@ public class EnterDataActivity extends AppCompatActivity {
     TimePickerDialog time_picker;
     EditText eText_date;
     EditText eText_time;
-    TextView tvw;
     DatePickerDialog date_picker;
 
     @Override
@@ -38,52 +37,56 @@ public class EnterDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_data);
 
         // DatePicker
-        tvw=(TextView)findViewById(R.id.textView_DATE);
-        eText_date=(EditText) findViewById(R.id.editText_DATE);
+        eText_date=findViewById(R.id.editText_DATE);
+
         eText_date.setInputType(InputType.TYPE_NULL);
-        eText_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        eText_date.setShowSoftInputOnFocus(false);
+        eText_date.setFocusable(false);
+        eText_date.setClickable(true);
+
+
+        eText_date.setOnClickListener(v -> {
                 final Calendar cldr = Calendar.getInstance();
                 int day = cldr.get(Calendar.DAY_OF_MONTH);
                 int month = cldr.get(Calendar.MONTH);
                 int year = cldr.get(Calendar.YEAR);
+
                 // date picker dialog
-                date_picker = new DatePickerDialog(EnterDataActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                String formattedDate = getString(R.string.date_format, dayOfMonth, monthOfYear + 1, year);
-                                eText_date.setText(formattedDate);
-                            }
-                        }, year, month, day);
+                DatePickerDialog date_picker = new DatePickerDialog(
+                        EnterDataActivity.this,
+                        (view, selectedYear, selectedMonth, selectedDay) -> {
+                            // Update the EditText with the selected date
+                            String formattedDate = getString(R.string.date_format,
+                                    selectedDay, selectedMonth + 1, selectedYear);
+                            eText_date.setText(formattedDate);
+                        },
+                        year, month, day
+                );
                 date_picker.show();
-            }
         });
 
         // TimePicker (set to 24h format)
-        tvw=(TextView)findViewById(R.id.textView_TIME);
-        eText_time=(EditText) findViewById(R.id.editText_TIME);
+        eText_time=findViewById(R.id.editText_TIME);
         eText_time.setInputType(InputType.TYPE_NULL);
-        eText_time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        eText_time.setShowSoftInputOnFocus(false);
+        eText_time.setFocusable(false);
+        eText_time.setClickable(true);
+
+        eText_time.setOnClickListener(v -> {
                 final Calendar cldr = Calendar.getInstance();
                 int hour = cldr.get(Calendar.HOUR_OF_DAY);
                 int minutes = cldr.get(Calendar.MINUTE);
+
                 // time picker dialog
-                time_picker = new TimePickerDialog(EnterDataActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                eText_time.setText(sHour + ":" + sMinute);
-                            }
+                TimePickerDialog time_picker = new TimePickerDialog(
+                        EnterDataActivity.this,
+                        (tp, selectedHour, selectedMinute) ->{
+                                eText_time.setText(selectedHour + ":" + selectedMinute);
+//                                eText_time.setText(String.format("%02d:%02d", selectedHour, selectedMinute)); ## in case leading 0s are wanted later
                         }, hour, minutes, true);
                 time_picker.show();
-            }
         });
-
-
     }
 
     /** Toast Example */
