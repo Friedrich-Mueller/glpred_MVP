@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,10 +22,8 @@ public class EnterDataActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_CU = "com.example.glpred.MESSAGE_CU";
     public static final String EXTRA_MESSAGE_BOLUS = "com.example.glpred.MESSAGE_BOLUS";
     public static final String EXTRA_MESSAGE_BASIS = "com.example.glpred.MESSAGE_BASIS";
-    TimePickerDialog time_picker;
     EditText eText_date;
     EditText eText_time;
-    DatePickerDialog date_picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +33,10 @@ public class EnterDataActivity extends AppCompatActivity {
 
         // DatePicker
         eText_date=findViewById(R.id.editText_DATE);
-
         eText_date.setInputType(InputType.TYPE_NULL);
-
         eText_date.setShowSoftInputOnFocus(false);
         eText_date.setFocusable(false);
         eText_date.setClickable(true);
-
 
         eText_date.setOnClickListener(v -> {
                 final Calendar cldr = Calendar.getInstance();
