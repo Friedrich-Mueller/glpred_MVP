@@ -53,7 +53,8 @@ public class EnterDataActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText_date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                String formattedDate = getString(R.string.date_format, dayOfMonth, monthOfYear + 1, year);
+                                eText_date.setText(formattedDate);
                             }
                         }, year, month, day);
                 date_picker.show();
