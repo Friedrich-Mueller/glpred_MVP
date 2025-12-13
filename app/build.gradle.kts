@@ -55,4 +55,14 @@ dependencies {
     // (Optional) Kotlin‑reflect if you later switch to Moshi‑Kotlin:
     // implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
 
+    // FreeStyle Libre 3 dependencies
+    // Networking
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okio:okio:3.7.0")
+    // JSON parsing
+    implementation("org.json:json:20231013")
+    // UI helpers
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+
 }

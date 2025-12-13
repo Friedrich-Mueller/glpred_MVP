@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GLP</string>
     <string name="button_send">Save to DB</string>
+    <string name="button_logInFetch">Login and Fetch Data</string>
 
     <string name="enter_date">Enter Date</string>
     <string name="enter_time">Enter Time</string>
@@ -11,8 +12,11 @@
 
 
     <string name="new_entry">New Entry</string>
+    <string name="fetch_data">Fetch LibreView Data</string>
     <string name="create_entry">Create Entry</string>
 
     <string name="date_format">%1$d/%2$d/%3$d</string>
 
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
 </resources>

@@ -32,7 +32,7 @@ public class EnterDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_data);
 
         // DatePicker
-        eText_date=findViewById(R.id.editText_DATE);
+        eText_date = findViewById(R.id.editText_DATE);
         eText_date.setInputType(InputType.TYPE_NULL);
         eText_date.setShowSoftInputOnFocus(false);
         eText_date.setFocusable(false);
@@ -89,7 +89,7 @@ public class EnterDataActivity extends AppCompatActivity {
     }
 
     /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
+    public void saveData(View view) {
 
         Intent intent = new Intent(this, ConfirmDataActivity.class);
 

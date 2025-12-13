@@ -25,10 +25,18 @@ public class MainActivity extends AppCompatActivity {
         myToast.show();
     }
 
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the button for a new entry */
     public void gotoEnterDataActivity(View view) {
 
         Intent intent = new Intent(this, EnterDataActivity.class);
+
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the button for fetching data from LibreView.com */
+    public void gotoFetchDatabaseActivity(View view) {
+
+        Intent intent = new Intent(this, FetchDatabaseActivity.class);
 
         startActivity(intent);
     }
