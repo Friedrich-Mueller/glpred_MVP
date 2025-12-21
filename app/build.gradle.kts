@@ -57,8 +57,10 @@ dependencies {
 
     // FreeStyle Libre 3 dependencies
     // Networking
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okio:okio:3.7.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    implementation("com.squareup.moshi:moshi-adapters:1.14.0")
+
     // JSON parsing
     implementation("org.json:json:20231013")
     // UI helpers

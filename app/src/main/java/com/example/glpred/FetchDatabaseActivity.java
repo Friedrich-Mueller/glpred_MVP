@@ -1,136 +1,91 @@
 package com.example.glpred;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
-import okhttp3.*;
+public class FetchDatabaseActivity extends AppCompatActivity {
 
-public class FetchDatabaseActivity extends AppCompatActivity{
-
-    private final OkHttpClient client = new OkHttpClient.Builder()
-            .followRedirects(true)
-            .followSslRedirects(true)
-            .build();
-
-    EditText eText_emailInput;
-    EditText eText_passwordInput;
-    Button downloadButton;
+    private static final int REQUEST_CODE_PICK_CSV = 100;
+    // This variable will hold the CSV data as a List of String arrays
+    private List<String[]> csvData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fetch_database);
 
-        eText_emailInput = findViewById(R.id.editText_emailAddress);
-        eText_passwordInput = findViewById(R.id.editText_password);
-        downloadButton = findViewById(R.id.button_FetchDatabaseActivity);
-    }
-    public void loginAndDownload(View view) {
-        String email = eText_emailInput.getText().toString();
-        String password = eText_passwordInput.getText().toString();
-        loginAndDownloadInternal(email, password);
+        Button openDownloadsButton = findViewById(R.id.button_FetchDatabaseActivity);
+        openDownloadsButton.setOnClickListener(v -> openDownloadsFolder());
     }
 
-    private void loginAndDownloadInternal(String email, String password) {
+    // Open the Downloads folder / file picker
+    private void openDownloadsFolder() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/csv"); // Only CSV files
+        startActivityForResult(intent, REQUEST_CODE_PICK_CSV);
+    }
 
-        new Thread(() -> {
-            try {
-                // 1. LOGIN REQUEST
-                String loginUrl = "https://www2.libreview.com/Account/Login";
+    // Handle the picked file
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                RequestBody formBody = new FormBody.Builder()
-                        .add("Email", email)
-                        .add("Password", password)
-                        .build();
-
-                Request loginRequest = new Request.Builder()
-                        .url(loginUrl)
-                        .post(formBody)
-                        .build();
-
-                Response loginResponse = client.newCall(loginRequest).execute();
-
-                if (!loginResponse.isSuccessful()) {
-                    runOnUiThread(() ->
-                            Toast.makeText(FetchDatabaseActivity.this, "Login failed", Toast.LENGTH_LONG).show()
-                    );
-                    return;
-                }
-
-                // Extract session cookies
-                StringBuilder cookies = new StringBuilder();
-                for (String cookie : loginResponse.headers("Set-Cookie")) {
-                    cookies.append(cookie).append("; ");
-                }
-
-                // 2. DOWNLOAD CSV USING THE SESSION COOKIE
-                String csvUrl = "https://www2.libreview.com/api/report/export?format=csv";
-
-                Request csvRequest = new Request.Builder()
-                        .url(csvUrl)
-                        .get()
-                        .addHeader("Cookie", cookies.toString())
-                        .build();
-
-                Response csvResponse = client.newCall(csvRequest).execute();
-
-                if (!csvResponse.isSuccessful()) {
-                    runOnUiThread(() ->
-                            Toast.makeText(FetchDatabaseActivity.this, "CSV download failed", Toast.LENGTH_LONG).show()
-                    );
-                    return;
-                }
-
-
-                ResponseBody responseBody = csvResponse.body();
-
-                if (responseBody == null) {
-                    runOnUiThread(() ->
-                            Toast.makeText(
-                                    FetchDatabaseActivity.this,
-                                    "CSV response body is empty",
-                                    Toast.LENGTH_LONG
-                            ).show()
-                    );
-                    return;
-                }
-
-                assert csvResponse.body() != null;
-                byte[] csvBytes = csvResponse.body().bytes();
-
-                // 3. SAVE CSV FILE
-                File file = new File(
-                        getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
-                        "libreview_data.csv"
-                );
-
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(csvBytes);
-                fos.close();
-
-                runOnUiThread(() ->
-                        Toast.makeText(FetchDatabaseActivity.this,
-                                "CSV saved to: " + file.getAbsolutePath(),
-                                Toast.LENGTH_LONG).show()
-                );
-
-            } catch (IOException e) {
-                runOnUiThread(() ->
-                        Toast.makeText(FetchDatabaseActivity.this,
-                                "Error: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show()
-                );
+        if (requestCode == REQUEST_CODE_PICK_CSV && resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                readCsv(uri);
             }
-        }).start();
+        }
     }
 
+    // Read CSV file into csvData variable
+    private void readCsv(Uri uri) {
+        csvData.clear(); // clear previous data
+
+        try (InputStream inputStream = getContentResolver().openInputStream(uri);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Split CSV line by comma
+                String[] columns = line.split(",");
+                csvData.add(columns);
+            }
+
+            // For debugging: print CSV data to Logcat
+            for (String[] row : csvData) {
+                Log.d("CSV", String.join(", ", row));
+            }
+
+            Toast.makeText(this, "CSV loaded: " + csvData.size() + " rows", Toast.LENGTH_SHORT).show();
+
+            // Now you can start processing csvData programmatically
+            // Example: access first row: csvData.get(0)
+            // Example: access first cell of first row: csvData.get(0)[0]
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error reading CSV", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Getter if you want to access CSV from other methods
+    public List<String[]> getCsvData() {
+        return csvData;
+    }
 }

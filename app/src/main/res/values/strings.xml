@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GLP</string>
     <string name="button_send">Save to DB</string>
-    <string name="button_logInFetch">Login and Fetch Data</string>
+    <string name="button_selectFile">Select File</string>
 
     <string name="enter_date">Enter Date</string>
     <string name="enter_time">Enter Time</string>
